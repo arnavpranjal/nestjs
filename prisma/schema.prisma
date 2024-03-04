@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 model user {
@@ -42,4 +42,11 @@ model bookmark{
   user user @relation(fields: [userId], references: [id])
   
   @@map("bookmarks")
+}
+model deal {
+  id Int @id @default(autoincrement())
+  name String @unique
+  owner String
+  startDate String
+  endDate String  
 }
