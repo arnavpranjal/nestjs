@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 model user {
@@ -47,6 +47,16 @@ model deal {
   id Int @id @default(autoincrement())
   name String @unique
   owner String
-  startDate String
-  endDate String  
+  startDate DateTime
+  endDate DateTime  
+  createdAt DateTime @default(now())
+  description String 
+  status String
+  phase String
+  phaseStatus String
+  phaseStartDate DateTime 
+  phaseEndDate DateTime
+  templates Json
+  customField Json?
+  files String? 
 }
