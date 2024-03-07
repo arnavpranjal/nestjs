@@ -1,4 +1,4 @@
-import { IsDate, IsDateString, IsNotEmpty, IsObject, IsOptional, IsString, isString } from "class-validator";
+import { IsDate, IsDateString, IsJSON, IsNotEmpty, IsObject, IsOptional, IsString, isString } from "class-validator";
 
 export class createDealDto {
     
@@ -53,11 +53,13 @@ export class createDealDto {
     @IsNotEmpty()
     phaseEndDate : string ;
 
-    @IsObject()
+    // @IsObject()
+    @IsNotEmpty()
+    @IsJSON()
     templates:any ;
 
     @IsOptional()
-    @IsObject()
+    @IsJSON()
     customField? : any ;
 
     @IsOptional()

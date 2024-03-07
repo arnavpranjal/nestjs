@@ -1,15 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { DealService } from './deal.service';
 // import { createDealDto } from './dto/createdeal.dto';
 import { createDealDto, updateDealDto } from './dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 
 @Controller('deal')
 export class DealController {  
     constructor(private dealService:DealService){}
     @Post('create')
-    async Create(@Body() dto:createDealDto ){
-        return await this.dealService.create(dto) ;
+     @UseInterceptors(FileInterceptor('file'))
+    async Create(@UploadedFile() file: Express.Multer.File, @Body() dto:createDealDto ){
+        console.log(file);
+        return await this.dealService.create(file , dto) ;
     }
 
     @Get()
@@ -33,9 +36,10 @@ export class DealController {
     }
 
     @Put(':id')
-    async updateDeal(@Param('id') id:string,@Body() dto : updateDealDto) {
+    @UseInterceptors(FileInterceptor('file'))
+    async updateDeal(@Param('id') id:string,@Body() dto : updateDealDto,@UploadedFile() file: Express.Multer.File) {
          const dealId = parseInt(id,10) ;
 
-         return await this.dealService.updateById(dealId,dto) ;
+         return await this.dealService.updateById(dealId,dto,file) ;
     }
 }

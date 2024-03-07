@@ -1,5 +1,5 @@
 import { Optional } from "@nestjs/common";
-import {IsDateString, IsNotEmpty, IsObject, IsOptional, IsString } from "class-validator";
+import {IsDateString, IsJSON, IsNotEmpty, IsObject, IsOptional, IsString } from "class-validator";
 
 export class updateDealDto {
     
@@ -62,11 +62,11 @@ export class updateDealDto {
 
 
     @IsOptional()
-    @IsObject()
+    @IsJSON()
     templates:any ;
 
     @IsOptional()
-    @IsObject()
+    @IsJSON()
     customField? : any ;
 
     @IsOptional()
